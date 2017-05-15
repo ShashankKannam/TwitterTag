@@ -54,14 +54,22 @@
 		98A4A1A41ECA483F00A86B1C /* TwitterTag */ = {
 			isa = PBXGroup;
 			children = (
-				98A4A1A51ECA483F00A86B1C /* AppDelegate.swift */,
+				98A4A1B71ECA485500A86B1C /* Supporting Files */,
 				98A4A1A71ECA483F00A86B1C /* ViewController.swift */,
 				98A4A1A91ECA483F00A86B1C /* Main.storyboard */,
+			);
+			path = TwitterTag;
+			sourceTree = "<group>";
+		};
+		98A4A1B71ECA485500A86B1C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				98A4A1A51ECA483F00A86B1C /* AppDelegate.swift */,
 				98A4A1AC1ECA483F00A86B1C /* Assets.xcassets */,
 				98A4A1AE1ECA483F00A86B1C /* LaunchScreen.storyboard */,
 				98A4A1B11ECA483F00A86B1C /* Info.plist */,
 			);
-			path = TwitterTag;
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

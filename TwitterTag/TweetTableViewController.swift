@@ -9,7 +9,18 @@
 import UIKit
 import Twitter
 
-class TweetTableViewController: UITableViewController {
+class TweetTableViewController: UITableViewController, UITextFieldDelegate {
+    
+    @IBOutlet weak var searchTextField: UITextField! {
+        didSet {
+            searchTextField.delegate = self
+        }
+    }
+    
+    @IBAction func refresh(_ sender: UIRefreshControl) {
+        searchForTweets()
+    }
+    
     
     private var tweets = [Array<Twitter.Tweet>]()
     
@@ -17,6 +28,8 @@ class TweetTableViewController: UITableViewController {
     
     var searchText: String? {
         didSet {
+            searchTextField.text = searchText
+            searchTextField.resignFirstResponder()
             tweets.removeAll()
             tableView.reloadData()
             searchForTweets()
@@ -28,20 +41,29 @@ class TweetTableViewController: UITableViewController {
         super.viewDidLoad()
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
-        searchText = "#Modi"
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == searchTextField {
+            searchText = searchTextField.text
+        }
+        return true
     }
     
     private func searchForTweets() {
-        if let request = getTwitterRequest() {
+        if let request = lastTwitterRequest?.newer ?? getTwitterRequest() {
             lastTwitterRequest = request
             request.fetchTweets{ [weak self] newTweets in
                 if request == self?.lastTwitterRequest {
                     DispatchQueue.main.async {
                         self?.tweets.insert(newTweets, at: 0)
                         self?.tableView.insertSections([0], with: .fade)
+                        self?.refreshControl?.endRefreshing()
                     }
                 }
             }
+        } else {
+            refreshControl?.endRefreshing()
         }
     }
     

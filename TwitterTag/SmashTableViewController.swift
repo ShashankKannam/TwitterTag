@@ -11,6 +11,8 @@ import Twitter
 import CoreData
 
 class SmashTableViewController: TweetTableViewController {
+    
+    var container = AppDelegate.container
 
     override func insertTweets(newTweets: [Twitter.Tweet]) {
         super.insertTweets(newTweets: newTweets)
@@ -18,25 +20,39 @@ class SmashTableViewController: TweetTableViewController {
     }
     
     private func updateDatabase(with tweets: [Twitter.Tweet]) {
-        AppDelegate.container?.performBackgroundTask{ context in
+        print("Database start loading")
+        container?.performBackgroundTask{ [weak self] context in
             for tweetInfo in tweets {
                 _ = try? Tweet.findOrCreateTweet(matching: tweetInfo, in: context)
             }
             try? context.save()
+            print("Database done loading")
+            self?.printDatabaseStatistics()
         }
-        printDatabaseStatistics()
     }
     
     private func printDatabaseStatistics() {
-        if let context = AppDelegate.context {
-            let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
-            
-            if let tweetCount = (try? context.fetch(request))?.count {
-                print("Tweets count: \(tweetCount)")
+        if let context = container?.viewContext {
+            context.perform {
+                Thread.isMainThread ? print("Main Thread") : print("Background Thread")
+                let request: NSFetchRequest<Tweet> = Tweet.fetchRequest()
+                
+                if let tweetCount = (try? context.fetch(request))?.count {
+                    print("Tweets count: \(tweetCount)")
+                }
+                
+                if let tweeterCount = try? context.count(for: TwitterUser.fetchRequest()) {
+                    print("Tweeter count: \(tweeterCount)")
+                }
             }
-            
-            if let tweeterCount = try? context.count(for: TwitterUser.fetchRequest()) {
-                print("Tweeter count: \(tweeterCount)")
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "TweetersSegue" {
+            if let dest = segue.destination as? SmashTweeterTableViewController {
+                dest.container = container
+                dest.mention = searchText
             }
         }
     }

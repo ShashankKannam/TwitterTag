@@ -94,7 +94,13 @@
                             <outlet property="delegate" destination="0Ie-Ap-P2Y" id="Oq0-xV-L7I"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="pUA-9N-9x8"/>
+                    <navigationItem key="navigationItem" id="pUA-9N-9x8">
+                        <barButtonItem key="rightBarButtonItem" title="Tweeters" id="jPM-v9-Hcs">
+                            <connections>
+                                <segue destination="s0Y-XZ-hO8" kind="show" identifier="TweetersSegue" id="EBF-gF-Udm"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="AhW-BC-ZYN">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -108,7 +114,51 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PN7-5E-n5N" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="40.799999999999997" y="126.38680659670166"/>
+            <point key="canvasLocation" x="-44" y="133"/>
+        </scene>
+        <!--Smash Tweeter Table View Controller-->
+        <scene sceneID="Oh7-ME-ZAV">
+            <objects>
+                <tableViewController id="s0Y-XZ-hO8" customClass="SmashTweeterTableViewController" customModule="TwitterTag" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="88" sectionHeaderHeight="28" sectionFooterHeight="28" id="ROq-xm-fxW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TweetersRI" textLabel="6Xr-wa-Pca" detailTextLabel="fWs-MS-lzD" rowHeight="88" style="IBUITableViewCellStyleSubtitle" id="GPC-yq-0yk">
+                                <rect key="frame" x="0.0" y="28" width="375" height="88"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GPC-yq-0yk" id="PfF-WJ-Tyx">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="87.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6Xr-wa-Pca">
+                                            <rect key="frame" x="15" y="27" width="33.5" height="20.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fWs-MS-lzD">
+                                            <rect key="frame" x="15" y="47.5" width="44" height="14.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="s0Y-XZ-hO8" id="7Kh-J3-r9R"/>
+                            <outlet property="delegate" destination="s0Y-XZ-hO8" id="vMf-Ai-9hv"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cmV-67-zrI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="740" y="133"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4uO-86-NZm">

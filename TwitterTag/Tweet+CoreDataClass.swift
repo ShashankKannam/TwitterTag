@@ -20,7 +20,7 @@ public class Tweet: NSManagedObject {
         do {
         let matches = try context.fetch(request)
             if matches.count > 0 {
-                assert(matches.count > 1, "Tweet: findOrCreateTweet -- database inconsistency")
+                assert(matches.count == 1, "Tweet: findOrCreateTweet -- database inconsistency")
                 return matches[0]
             }
         } catch {
